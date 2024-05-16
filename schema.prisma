@@ -1,0 +1,27 @@
+// schema.prisma
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// schema.prisma
+
+model Team {
+  id    Int     @id @default(autoincrement())
+  name  String
+  sport String
+  players Player[]
+}
+
+model Player {
+  id    Int     @id @default(autoincrement())
+  name  String
+  position String
+  teamId Int
+  team   Team    @relation(fields: [teamId], references: [id])
+}
